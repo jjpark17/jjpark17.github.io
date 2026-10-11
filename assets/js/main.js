@@ -15,7 +15,7 @@
       const terms = search.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
       let count = 0;
       for (const paper of papers) {
-        const matches = (activeFilter === 'all' || paper.dataset.category === activeFilter) && terms.every(term => paper.dataset.search.includes(term));
+        const matches = (activeFilter === 'all' || paper.dataset.group === activeFilter) && terms.every(term => paper.dataset.search.includes(term));
         paper.hidden = !matches;
         if (matches) count++;
       }

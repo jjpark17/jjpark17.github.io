@@ -10,7 +10,8 @@ vm.runInNewContext(await readFile(path.join(root, 'assets/js/content.js'), 'utf8
 const data = context.window.academicContent;
 const escape = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 const authors = paper => paper.authors.map(name => name === data.profile.name ? `<strong>${escape(name)}</strong>` : escape(name)).join(', ');
-const categoryNames = { journal: 'Journal', conference: 'Conference', demo: 'Poster / demo', domestic: 'Domestic' };
+const categoryOrder = ['journal', 'conference', 'demo', 'domestic'];
+const publicationGroup = paper => paper.category === 'domestic' ? 'domestic' : 'international';
 const awardsFor = id => data.awards.filter(award => award.publicationId === id);
 const scholarSearch = title => `https://scholar.google.com/scholar?q=${encodeURIComponent('"' + title + '"')}`;
 
@@ -86,21 +87,20 @@ async function imageMarkup(image, kind, defaultAlt) {
 }
 
 const profilePhoto = await imageMarkup(data.profile.image, 'profile', `Portrait of ${data.profile.name}`);
-const publications = [...data.publications].sort((a, b) => b.year - a.year || Object.keys(categoryNames).indexOf(a.category) - Object.keys(categoryNames).indexOf(b.category));
+const publications = [...data.publications].sort((a, b) => b.year - a.year || categoryOrder.indexOf(a.category) - categoryOrder.indexOf(b.category));
 const thumbnails = new Map(await Promise.all(publications.map(async paper => [paper.id, await imageMarkup(paper.thumbnail, 'paper', `Representative image of ${paper.title}`)])));
 
 function renderPublication(paper) {
   const awardHTML = awardsFor(paper.id).map(award => `<span class="publication-award">${escape(award.title)} · ${escape(award.venue)}</span>`).join('');
   const note = paper.note || (paper.subtype === 'work-in-progress' ? 'Work-in-Progress' : '');
-  const typeLabel = paper.category === 'domestic' && paper.subtype === 'demo' ? 'Domestic demo' : categoryNames[paper.category];
   const searchable = [paper.title, ...paper.authors, paper.venue, paper.venueShort, paper.year, paper.id, note, ...awardsFor(paper.id).map(award => award.title)].join(' ').toLowerCase();
   const paperSearchHTML = paper.category !== 'domestic' ? `<a class="paper-search" href="${escape(scholarSearch(paper.title))}" target="_blank" rel="noopener noreferrer" aria-label="Find ${escape(paper.title)} on Google Scholar">Find on Scholar ↗</a>` : '';
   const footerHTML = awardHTML || paperSearchHTML ? `<div class="publication-footer"><div>${awardHTML}</div>${paperSearchHTML}</div>` : '';
-  return `<article class="publication-item" id="pub-${escape(paper.id)}" data-category="${escape(paper.category)}" data-search="${escape(searchable)}"><div class="publication-image"><div class="paper-thumbnail">${thumbnails.get(paper.id)}</div></div><div class="publication-meta"><span class="publication-year">${paper.year}</span><span class="publication-type">${escape(typeLabel)}</span></div><div class="publication-copy"><h3>${escape(paper.title)}</h3><p class="publication-authors">${authors(paper)}</p><p class="publication-venue">${escape(paper.venue)}${note ? ` <span class="publication-note">· ${escape(note)}</span>` : ''}</p>${footerHTML}</div></article>`;
+  return `<article class="publication-item" id="pub-${escape(paper.id)}" data-category="${escape(paper.category)}" data-group="${publicationGroup(paper)}" data-search="${escape(searchable)}"><div class="publication-image"><div class="paper-thumbnail">${thumbnails.get(paper.id)}</div></div><div class="publication-copy"><h3>${escape(paper.title)}</h3><p class="publication-authors">${authors(paper)}</p><p class="publication-venue">${escape(paper.venue)}${note ? ` <span class="publication-note">· ${escape(note)}</span>` : ''}</p>${footerHTML}</div></article>`;
 }
 const htmlPublicationsWithImages = publications.map(renderPublication).join('\n');
 
-const filters = [['all', 'All'], ['journal', 'Journals'], ['conference', 'Conferences'], ['demo', 'Posters & demos'], ['domestic', 'Domestic']].map(([category, label]) => `<button type="button" data-filter="${category}" aria-pressed="${category === 'all'}">${escape(label)} <span>${category === 'all' ? data.publications.length : data.publications.filter(paper => paper.category === category).length}</span></button>`).join('');
+const filters = [['all', 'All'], ['international', 'International'], ['domestic', 'Domestic']].map(([group, label]) => `<button type="button" data-filter="${group}" aria-pressed="${group === 'all'}">${escape(label)} <span>${group === 'all' ? data.publications.length : data.publications.filter(paper => publicationGroup(paper) === group).length}</span></button>`).join('');
 const values = {
   ASSET_VERSION: assetVersion,
   PROFILE_PHOTO: profilePhoto,
