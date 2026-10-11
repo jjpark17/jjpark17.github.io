@@ -1,14 +1,14 @@
 # Jaejun Park — Academic Website
 
-CV를 바탕으로 만든 대학원생 개인 웹사이트입니다. HTML, CSS, JavaScript로 구성되어 있으며 패키지 설치 없이 GitHub Pages에 배포할 수 있습니다. 학력·연구·발표 등의 내용과 Google Scholar 주소는 제공된 CV에서 가져왔으며, GitHub 주소는 알려주신 `jjpark17` 계정으로 연결했습니다. 소개와 전체 논문 목록은 HTML에 포함되어 검색엔진과 JavaScript를 끈 브라우저에서도 읽을 수 있습니다.
+CV를 바탕으로 만든 대학원생 개인 웹사이트입니다. HTML, CSS, JavaScript로 구성되어 있으며 패키지 설치 없이 GitHub Pages에 배포할 수 있습니다. 학력·연구·발표 등의 내용과 Google Scholar 주소는 제공된 CV에서 가져왔으며, LinkedIn은 알려주신 프로필 주소로 연결했습니다. 소개와 전체 논문 목록은 HTML에 포함되어 검색엔진과 JavaScript를 끈 브라우저에서도 읽을 수 있습니다.
 
 ## 로컬에서 보기
 
 흰색 배경·베이지색 상단 바·녹색 포인트·프로필 사이드바와 읽기 편한 산세리프 글꼴을 사용하는 디자인입니다. 이름은 **Jaejun Park**로 표시합니다. 웹사이트와 메뉴는 **Home**, **Publications** 두 개로 구성됩니다. `index.html`에는 연구 관심사를 합친 자기소개 문단과 한 줄 소식 목록인 **News**를, `publications.html`에는 검색·필터가 있는 전체 논문 목록을 제공합니다. 프로필 사진과 논문 대표 이미지 자리가 준비되어 있습니다. 국내 논문에는 Scholar 검색 링크를 표시하지 않습니다.
 
-페이지는 최소 너비 1260px의 데스크톱 배치를 유지합니다. 창이 좁아져도 글꼴·사진·단 구성은 축소하지 않으며, 가로 스크롤로 전체 내용을 볼 수 있습니다. CV는 프로필의 Email·Google Scholar·GitHub 아래에 텍스트 링크로 표시합니다.
+페이지는 최소 너비 1260px의 데스크톱 배치를 유지합니다. 창이 좁아져도 글꼴·사진·단 구성은 축소하지 않으며, 가로 스크롤로 전체 내용을 볼 수 있습니다. CV는 프로필의 Email·Google Scholar·LinkedIn 아래에 텍스트 링크로 표시합니다.
 
-상단 바는 [Color Hunt의 베이지·카키 팔레트](https://colorhunt.co/palette/0a400c819067b1ab86fefae0)를 참고해 카키 베이지 `#B1AB86`과 올리브색 경계 `#819067`을 사용합니다. 높이는 66px이며, 상단 이름·메뉴·연구 분야 문구는 프로필 이름과 News 제목보다 크게 표시합니다.
+상단 바는 [Color Hunt의 베이지·카키 팔레트](https://colorhunt.co/palette/0a400c819067b1ab86fefae0)의 카키 베이지와 올리브색에 흰색을 50% 섞은 `#D8D5C3`과 경계색 `#C0C8B3`을 사용합니다. 높이는 66px이며, 상단 이름·메뉴·연구 분야 문구는 프로필 이름과 News 제목보다 크게 표시합니다.
 
 Node.js가 설치된 환경에서 이 폴더의 PowerShell을 열고 다음 명령을 차례로 실행합니다. `npm install`은 필요하지 않습니다.
 

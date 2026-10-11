@@ -10,6 +10,7 @@ window.academicContent = {
     institution: "Pohang University of Science and Technology",
     institutionShort: "POSTECH",
     advisor: "Prof. Seungmoon Choi",
+    linkedinUrl: "https://www.linkedin.com/in/jaejun-park-a842a5162/",
     email: "jjpark17@postech.ac.kr",
     scholarUrl: "https://scholar.google.co.kr/citations?user=aEWsBWQAAAAJ&hl=ko"
   },
