@@ -27,8 +27,6 @@ for (const file of versionedAssets) {
 }
 const assetVersion = assetHash.digest('hex').slice(0, 12);
 
-const featured = data.publications.find(paper => paper.id === 'J2');
-const selected = data.publications.filter(paper => paper.featured && paper.id !== featured.id);
 const publications = [...data.publications].sort((a, b) => b.year - a.year || Object.keys(categoryNames).indexOf(a.category) - Object.keys(categoryNames).indexOf(b.category));
 const htmlPublications = publications.map(paper => {
   const awardHTML = awardsFor(paper.id).map(award => `<span class="publication-award">${escape(award.title)} · ${escape(award.venue)}</span>`).join('');
@@ -47,12 +45,7 @@ const values = {
   DEPARTMENT: escape(data.profile.department), INSTITUTION_SHORT: escape(data.profile.institutionShort),
   ADVISOR: escape(data.profile.advisor), SCHOLAR_URL: escape(data.profile.scholarUrl), YEAR: '2026',
   STRUCTURED_DATA: JSON.stringify({ '@context': 'https://schema.org', '@type': 'Person', name: data.profile.name, jobTitle: data.profile.role, affiliation: { '@type': 'CollegeOrUniversity', name: data.profile.institution }, email: `mailto:${data.profile.email}`, sameAs: [data.profile.scholarUrl, 'https://github.com/jjpark17'], knowsAbout: data.researchInterests }).replace(/</g, '\\u003c'),
-  FEATURED_TITLE: escape(featured.title), FEATURED_AUTHORS: authors(featured),
-  SELECTED_WORK: selected.map((paper, index) => `<a class="selected-item" href="#pub-${escape(paper.id)}"><span class="selected-index" aria-hidden="true">0${index + 2}</span><div><h3>${escape(paper.title)}</h3><p>${escape(paper.venueShort)} · ${paper.year}</p></div><span class="selected-arrow" aria-hidden="true">↗</span></a>`).join('\n'),
-  PUBLICATION_COUNT: data.publications.length, PUBLICATION_FILTERS: filters, PUBLICATIONS: htmlPublications,
-  AWARDS: data.awards.map(award => `<article class="award-item"><span class="award-year">${award.year}</span><div><h3>${escape(award.title)}</h3><p>${escape(award.venue)} <a href="#pub-${escape(award.publicationId)}">Related publication ↗</a></p></div></article>`).join('\n'),
-  EDUCATION: data.education.map(item => `<article class="education-item"><p class="education-period">${escape(item.period)}</p><h4>${escape(item.degree)}</h4><p>${escape(item.institution)}</p></article>`).join('\n'),
-  PROJECTS: data.projects.map(item => `<article class="project-item"><span class="project-period">${escape(item.period)}</span><div><h4>${escape(item.title)}</h4><p>${escape(item.sponsor)}</p></div></article>`).join('\n')
+  PUBLICATION_COUNT: data.publications.length, PUBLICATION_FILTERS: filters, PUBLICATIONS: htmlPublications
 };
 const pageNames = ['index', 'classic', 'playful'];
 const templates = await Promise.all(pageNames.map(name => readFile(path.join(root, `${name}.template.html`), 'utf8')));
@@ -63,4 +56,4 @@ const outputs = templates.map(template => template.replace(/\{\{([A-Z_]+)\}\}/g,
 for (const [index, name] of pageNames.entries()) {
   await writeFile(path.join(root, `${name}.html`), outputs[index], 'utf8');
 }
-console.log(`Built ${pageNames.map(name => `${name}.html`).join(', ')}: ${data.publications.length} publications, ${data.awards.length} awards, ${data.projects.length} projects each.`);
+console.log(`Built ${pageNames.map(name => `${name}.html`).join(', ')}: profile, research interests, and ${data.publications.length} publications each.`);

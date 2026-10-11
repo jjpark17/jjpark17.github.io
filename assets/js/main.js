@@ -37,7 +37,7 @@
   status.hidden = false;
   filterPapers();
 
-  // A selected work or award always reveals its paper, even with a filter active.
+  // Publication links reveal their paper, even with a filter active.
   function revealLinkedPaper(hash) {
     if (!hash.startsWith('#pub-')) return;
     const target = document.getElementById(hash.slice(1));
