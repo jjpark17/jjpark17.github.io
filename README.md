@@ -4,7 +4,7 @@ CV를 바탕으로 만든 대학원생 개인 웹사이트입니다. HTML, CSS, 
 
 ## 로컬에서 보기
 
-기본 홈페이지는 흰 배경과 간결한 글자 구성의 **Studio** 디자인입니다. 파스텔 포인트의 **Playful** 디자인은 `playful.html`, 첫 **Classic** 디자인은 `classic.html`에서 비교할 수 있습니다. 세 페이지는 같은 CV 데이터를 사용하며, 국내 논문에는 Scholar 검색 링크를 표시하지 않습니다.
+기본 홈페이지는 **Studio**의 간결한 본문과 **Classic**의 프로필 사이드바·세리프 제목을 섞은 디자인입니다. 이름은 **Jaejun Park**로 표시합니다. 파스텔 포인트의 **Playful** 디자인은 `playful.html`, 첫 **Classic** 디자인은 `classic.html`에서 비교할 수 있습니다. 세 페이지는 같은 CV 데이터를 사용하며, 국내 논문에는 Scholar 검색 링크를 표시하지 않습니다.
 
 Node.js가 설치된 환경에서 이 폴더의 PowerShell을 열고 다음 명령을 차례로 실행합니다. `npm install`은 필요하지 않습니다.
 
