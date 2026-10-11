@@ -2,6 +2,7 @@ import { readFile, writeFile, access } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import vm from 'node:vm';
+import { createHash } from 'node:crypto';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const context = { window: {} };
@@ -18,6 +19,12 @@ for (const award of data.awards) {
   if (!data.publications.some(paper => paper.id === award.publicationId)) throw new Error(`Unknown award publication: ${award.publicationId}`);
 }
 await Promise.all(['assets/Jaejun_Park_CV.pdf', 'assets/css/styles.css', 'assets/css/classic.css', 'assets/js/main.js', 'assets/favicon.svg'].map(file => access(path.join(root, file))));
+const assetHash = createHash('sha256');
+for (const file of ['assets/css/styles.css', 'assets/css/classic.css', 'assets/js/main.js', 'assets/favicon.svg']) {
+  const source = await readFile(path.join(root, file), 'utf8');
+  assetHash.update(source.replace(/\r\n/g, '\n'));
+}
+const assetVersion = assetHash.digest('hex').slice(0, 12);
 
 const featured = data.publications.find(paper => paper.id === 'J2');
 const selected = data.publications.filter(paper => paper.featured && paper.id !== featured.id);
@@ -34,6 +41,7 @@ const htmlPublications = publications.map(paper => {
 
 const filters = [['all', 'All'], ['journal', 'Journals'], ['conference', 'Conferences'], ['demo', 'Posters & demos'], ['domestic', 'Domestic']].map(([category, label]) => `<button type="button" data-filter="${category}" aria-pressed="${category === 'all'}">${escape(label)} <span>${category === 'all' ? data.publications.length : data.publications.filter(paper => paper.category === category).length}</span></button>`).join('');
 const values = {
+  ASSET_VERSION: assetVersion,
   NAME: escape(data.profile.name), ROLE: escape(data.profile.role), EMAIL: escape(data.profile.email),
   DEPARTMENT: escape(data.profile.department), INSTITUTION_SHORT: escape(data.profile.institutionShort),
   ADVISOR: escape(data.profile.advisor), SCHOLAR_URL: escape(data.profile.scholarUrl), YEAR: '2026',
