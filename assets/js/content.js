@@ -19,6 +19,12 @@ window.academicContent = {
     "LLMs and Automatic Haptic Generation",
     "Human-Computer Interaction"
   ],
+  news: [
+    { date: "2026", text: "GenTouchVR — TVCG / IEEE VR.", publicationId: "J2" },
+    { date: "2026", text: "KHC Best Paper: Honorable Mention.", publicationId: "KC5" },
+    { date: "2026", text: "KHC Best Demo: Honorable Mention.", publicationId: "KD2" },
+    { date: "2025", text: "WHC demos: People’s Choice Award.", publicationId: "D2" }
+  ],
   education: [
     {
       period: "2021.02 – Present",

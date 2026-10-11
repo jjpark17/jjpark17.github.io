@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f7f8f4">
   <meta name="description" content="Jaejun Park, Ph.D. candidate at POSTECH. Research in human-computer interaction, multimodal haptics, virtual reality, and automatic haptic generation.">
   <meta property="og:title" content="Jaejun Park — HCI & Haptics">
-  <meta property="og:description" content="Research and publications. Ph.D. candidate at POSTECH.">
+  <meta property="og:description" content="About and news. Ph.D. candidate at POSTECH studying HCI and haptics.">
   <meta property="og:type" content="website">
   <title>Jaejun Park — HCI & Haptics</title>
   <link rel="icon" href="assets/favicon.svg?v={{ASSET_VERSION}}" type="image/svg+xml">
@@ -20,16 +20,14 @@
     <div class="header-inner">
       <a class="wordmark" href="#about" aria-label="Jaejun Park, home"><span class="brand-name">{{NAME}}</span></a>
       <nav class="top-nav" aria-label="Main navigation">
-        <a href="#about" aria-current="page">Home</a>
-        <a href="#research">Research</a>
+        <a href="index.html" aria-current="page">Home</a>
         <a href="publications.html">Publications</a>
-        <a class="nav-contact" href="mailto:{{EMAIL}}">Contact ↗</a>
       </nav>
     </div>
   </header>
 
   <div class="page-layout">
-    <aside class="profile-sidebar" aria-label="Profile and section navigation">
+    <aside class="profile-sidebar" aria-label="Profile">
       <div class="profile-photo">{{PROFILE_PHOTO}}</div>
       <div class="profile-details">
         <h1 class="profile-name">{{NAME}}</h1>
@@ -43,12 +41,6 @@
         <a href="https://github.com/jjpark17" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
       </div>
       <a class="cv-button" href="assets/Jaejun_Park_CV.pdf" download>Download CV <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 3v9m-4-4 4 4 4-4M4 13v4h12v-4"/></svg></a>
-      <nav class="section-nav" aria-label="On this page">
-        <span class="nav-label">EXPLORE</span>
-        <a href="#about" aria-current="location">About</a>
-        <a href="#research">Research interests</a>
-        <a href="publications.html">Publications</a>
-      </nav>
       <p class="location-note">Pohang, South Korea</p>
     </aside>
 
@@ -57,28 +49,16 @@
         <p class="hero-kicker">HUMAN–COMPUTER INTERACTION & HAPTICS</p>
         <h2 class="hero-title" id="hero-title">Making virtual worlds<br><span>tangible.</span></h2>
         <div class="bio">
-          <p>I am a Ph.D. candidate at {{INSTITUTION_SHORT}}, advised by {{ADVISOR}}. I study how people perceive and interact with digital experiences through touch.</p>
-          <p>My research interests include multimodal haptic feedback, haptic interaction in virtual reality, and LLMs for automatic haptic generation.</p>
-        </div>
-        <a class="text-link hero-publications" href="publications.html">Explore publications <span aria-hidden="true">↗</span></a>
-      </section>
-
-      <section class="content-section" id="research" aria-labelledby="research-title">
-        <div class="section-heading"><span class="section-number">01</span><h2 id="research-title">Research interests</h2></div>
-        <div class="research-grid">
-          <article class="research-area"><span class="research-index">01 / HAPTICS</span><h3>Multimodal feedback</h3><p>Vibrotactile, thermal, and kinesthetic feedback, and how we perceive different forms of touch.</p></article>
-          <article class="research-area"><span class="research-index">02 / VIRTUAL REALITY</span><h3>Haptic interaction in VR</h3><p>Connecting virtual environments with a sense of touch through haptic interaction.</p></article>
-          <article class="research-area"><span class="research-index">03 / GENERATIVE AI</span><h3>Automatic haptic generation</h3><p>LLMs and automatic haptic generation for digital experiences.</p></article>
+          <p>I am a Ph.D. candidate in the {{DEPARTMENT}} at {{INSTITUTION_SHORT}}, advised by {{ADVISOR}}. My research focuses on human perception and interaction through touch, including multimodal haptic feedback (vibrotactile, thermal, and kinesthetic), haptic interaction in virtual reality, and LLMs for automatic haptic generation.</p>
         </div>
       </section>
 
-      <section class="content-section publications-summary" aria-labelledby="publications-summary-title">
-        <div class="section-heading"><span class="section-number">02</span><h2 id="publications-summary-title">Publications</h2></div>
-        <p class="section-intro">{{PUBLICATION_COUNT}} journal articles, conference papers, posters, and demonstrations.</p>
-        <a class="text-link" href="publications.html">View the full publication list <span aria-hidden="true">↗</span></a>
+      <section class="content-section news-section" id="news" aria-labelledby="news-title">
+        <div class="section-heading"><h2 id="news-title">News</h2></div>
+        <ul class="news-list">{{HOME_NEWS}}</ul>
       </section>
 
-      <footer class="site-footer"><span>© {{YEAR}} {{NAME}}</span><nav class="template-links" aria-label="Other designs"><a href="playful.html">Playful ↗</a><a href="classic.html">Classic ↗</a></nav><a href="#about">Back to top ↑</a></footer>
+      <footer class="site-footer"><span>© {{YEAR}} {{NAME}}</span><a href="#about">Back to top ↑</a></footer>
     </main>
   </div>
 </body>

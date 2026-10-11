@@ -18,7 +18,28 @@ if (new Set(data.publications.map(paper => paper.id)).size !== data.publications
 for (const award of data.awards) {
   if (!data.publications.some(paper => paper.id === award.publicationId)) throw new Error(`Unknown award publication: ${award.publicationId}`);
 }
-const versionedAssets = ['assets/css/styles.css', 'assets/css/classic.css', 'assets/css/playful.css', 'assets/js/main.js', 'assets/favicon.svg', 'assets/favicon-playful.svg'];
+const publicationById = new Map(data.publications.map(paper => [paper.id, paper]));
+
+function renderNewsItem(item) {
+  if (typeof item.date !== 'string' || !/^\d{4}$/.test(item.date) || typeof item.text !== 'string' || !item.text.trim()) {
+    throw new Error('Invalid news item: expected a year and a short text announcement');
+  }
+  let textHTML = escape(item.text);
+  if (item.publicationId != null) {
+    const paper = publicationById.get(item.publicationId);
+    if (!paper) throw new Error(`Unknown news publication: ${item.publicationId}`);
+    const shortTitle = paper.title.split(':', 1)[0];
+    const titleIndex = item.text.indexOf(shortTitle);
+    const link = label => `<a href="publications.html#pub-${escape(paper.id)}">${escape(label)}</a>`;
+    textHTML = titleIndex < 0
+      ? link(item.text)
+      : `${escape(item.text.slice(0, titleIndex))}${link(shortTitle)}${escape(item.text.slice(titleIndex + shortTitle.length))}`;
+  }
+  return `<li class="news-item"><span class="news-date">${escape(item.date)}</span><p>${textHTML}</p></li>`;
+}
+const htmlNews = data.news.map(renderNewsItem).join('\n');
+
+const versionedAssets = ['assets/css/styles.css', 'assets/js/main.js', 'assets/favicon.svg'];
 await Promise.all(['assets/Jaejun_Park_CV.pdf', ...versionedAssets].map(file => access(path.join(root, file))));
 const assetHash = createHash('sha256');
 for (const file of versionedAssets) {
@@ -68,33 +89,30 @@ const profilePhoto = await imageMarkup(data.profile.image, 'profile', `Portrait 
 const publications = [...data.publications].sort((a, b) => b.year - a.year || Object.keys(categoryNames).indexOf(a.category) - Object.keys(categoryNames).indexOf(b.category));
 const thumbnails = new Map(await Promise.all(publications.map(async paper => [paper.id, await imageMarkup(paper.thumbnail, 'paper', `Representative image of ${paper.title}`)])));
 
-function renderPublication(paper, withImages = false) {
+function renderPublication(paper) {
   const awardHTML = awardsFor(paper.id).map(award => `<span class="publication-award">${escape(award.title)} · ${escape(award.venue)}</span>`).join('');
   const note = paper.note || (paper.subtype === 'work-in-progress' ? 'Work-in-Progress' : '');
   const typeLabel = paper.category === 'domestic' && paper.subtype === 'demo' ? 'Domestic demo' : categoryNames[paper.category];
   const searchable = [paper.title, ...paper.authors, paper.venue, paper.venueShort, paper.year, paper.id, note, ...awardsFor(paper.id).map(award => award.title)].join(' ').toLowerCase();
   const paperSearchHTML = paper.category !== 'domestic' ? `<a class="paper-search" href="${escape(scholarSearch(paper.title))}" target="_blank" rel="noopener noreferrer" aria-label="Find ${escape(paper.title)} on Google Scholar">Find on Scholar ↗</a>` : '';
   const footerHTML = awardHTML || paperSearchHTML ? `<div class="publication-footer"><div>${awardHTML}</div>${paperSearchHTML}</div>` : '';
-  const thumbnailHTML = withImages ? `<div class="publication-image"><div class="paper-thumbnail">${thumbnails.get(paper.id)}</div></div>` : '';
-  const metaClass = withImages ? ' class="publication-meta"' : '';
-  const copyClass = withImages ? ' class="publication-copy"' : '';
-  return `<article class="publication-item" id="pub-${escape(paper.id)}" data-category="${escape(paper.category)}" data-search="${escape(searchable)}">${thumbnailHTML}<div${metaClass}><span class="publication-year">${paper.year}</span><span class="publication-type">${escape(typeLabel)}</span></div><div${copyClass}><h3>${escape(paper.title)}</h3><p class="publication-authors">${authors(paper)}</p><p class="publication-venue">${escape(paper.venue)}${note ? ` <span class="publication-note">· ${escape(note)}</span>` : ''}</p>${footerHTML}</div></article>`;
+  return `<article class="publication-item" id="pub-${escape(paper.id)}" data-category="${escape(paper.category)}" data-search="${escape(searchable)}"><div class="publication-image"><div class="paper-thumbnail">${thumbnails.get(paper.id)}</div></div><div class="publication-meta"><span class="publication-year">${paper.year}</span><span class="publication-type">${escape(typeLabel)}</span></div><div class="publication-copy"><h3>${escape(paper.title)}</h3><p class="publication-authors">${authors(paper)}</p><p class="publication-venue">${escape(paper.venue)}${note ? ` <span class="publication-note">· ${escape(note)}</span>` : ''}</p>${footerHTML}</div></article>`;
 }
-const htmlPublications = publications.map(paper => renderPublication(paper)).join('\n');
-const htmlPublicationsWithImages = publications.map(paper => renderPublication(paper, true)).join('\n');
+const htmlPublicationsWithImages = publications.map(renderPublication).join('\n');
 
 const filters = [['all', 'All'], ['journal', 'Journals'], ['conference', 'Conferences'], ['demo', 'Posters & demos'], ['domestic', 'Domestic']].map(([category, label]) => `<button type="button" data-filter="${category}" aria-pressed="${category === 'all'}">${escape(label)} <span>${category === 'all' ? data.publications.length : data.publications.filter(paper => paper.category === category).length}</span></button>`).join('');
 const values = {
   ASSET_VERSION: assetVersion,
   PROFILE_PHOTO: profilePhoto,
+  HOME_NEWS: htmlNews,
   NAME: escape(data.profile.name), ROLE: escape(data.profile.role), EMAIL: escape(data.profile.email),
   DEPARTMENT: escape(data.profile.department), INSTITUTION_SHORT: escape(data.profile.institutionShort),
   ADVISOR: escape(data.profile.advisor), SCHOLAR_URL: escape(data.profile.scholarUrl), YEAR: '2026',
   STRUCTURED_DATA: JSON.stringify({ '@context': 'https://schema.org', '@type': 'Person', name: data.profile.name, jobTitle: data.profile.role, affiliation: { '@type': 'CollegeOrUniversity', name: data.profile.institution }, email: `mailto:${data.profile.email}`, sameAs: [data.profile.scholarUrl, 'https://github.com/jjpark17'], knowsAbout: data.researchInterests }).replace(/</g, '\\u003c'),
-  PUBLICATION_COUNT: data.publications.length, PUBLICATION_FILTERS: filters, PUBLICATIONS: htmlPublications,
+  PUBLICATION_COUNT: data.publications.length, PUBLICATION_FILTERS: filters,
   PUBLICATIONS_WITH_IMAGES: htmlPublicationsWithImages
 };
-const pageNames = ['index', 'classic', 'playful', 'publications'];
+const pageNames = ['index', 'publications'];
 const templates = await Promise.all(pageNames.map(name => readFile(path.join(root, `${name}.template.html`), 'utf8')));
 const outputs = templates.map(template => template.replace(/\{\{([A-Z_]+)\}\}/g, (_, key) => {
   if (!(key in values)) throw new Error(`Unknown template placeholder: ${key}`);
