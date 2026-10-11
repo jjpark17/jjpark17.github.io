@@ -17,7 +17,7 @@ if (new Set(data.publications.map(paper => paper.id)).size !== data.publications
 for (const award of data.awards) {
   if (!data.publications.some(paper => paper.id === award.publicationId)) throw new Error(`Unknown award publication: ${award.publicationId}`);
 }
-await Promise.all(['assets/Jaejun_Park_CV.pdf', 'assets/css/styles.css', 'assets/js/main.js', 'assets/favicon.svg'].map(file => access(path.join(root, file))));
+await Promise.all(['assets/Jaejun_Park_CV.pdf', 'assets/css/styles.css', 'assets/css/classic.css', 'assets/js/main.js', 'assets/favicon.svg'].map(file => access(path.join(root, file))));
 
 const featured = data.publications.find(paper => paper.id === 'J2');
 const selected = data.publications.filter(paper => paper.featured && paper.id !== featured.id);
@@ -27,7 +27,9 @@ const htmlPublications = publications.map(paper => {
   const note = paper.note || (paper.subtype === 'work-in-progress' ? 'Work-in-Progress' : '');
   const typeLabel = paper.category === 'domestic' && paper.subtype === 'demo' ? 'Domestic demo' : categoryNames[paper.category];
   const searchable = [paper.title, ...paper.authors, paper.venue, paper.venueShort, paper.year, paper.id, note, ...awardsFor(paper.id).map(award => award.title)].join(' ').toLowerCase();
-  return `<article class="publication-item" id="pub-${escape(paper.id)}" data-category="${escape(paper.category)}" data-search="${escape(searchable)}"><div><span class="publication-year">${paper.year}</span><span class="publication-type">${escape(typeLabel)}</span></div><div><h3>${escape(paper.title)}</h3><p class="publication-authors">${authors(paper)}</p><p class="publication-venue">${escape(paper.venue)}${note ? ` <span class="publication-note">· ${escape(note)}</span>` : ''}</p><div class="publication-footer"><div>${awardHTML}</div><a class="paper-search" href="${escape(scholarSearch(paper.title))}" target="_blank" rel="noopener noreferrer" aria-label="Find ${escape(paper.title)} on Google Scholar">Find on Scholar ↗</a></div></div></article>`;
+  const paperSearchHTML = paper.category !== 'domestic' ? `<a class="paper-search" href="${escape(scholarSearch(paper.title))}" target="_blank" rel="noopener noreferrer" aria-label="Find ${escape(paper.title)} on Google Scholar">Find on Scholar ↗</a>` : '';
+  const footerHTML = awardHTML || paperSearchHTML ? `<div class="publication-footer"><div>${awardHTML}</div>${paperSearchHTML}</div>` : '';
+  return `<article class="publication-item" id="pub-${escape(paper.id)}" data-category="${escape(paper.category)}" data-search="${escape(searchable)}"><div><span class="publication-year">${paper.year}</span><span class="publication-type">${escape(typeLabel)}</span></div><div><h3>${escape(paper.title)}</h3><p class="publication-authors">${authors(paper)}</p><p class="publication-venue">${escape(paper.venue)}${note ? ` <span class="publication-note">· ${escape(note)}</span>` : ''}</p>${footerHTML}</div></article>`;
 }).join('\n');
 
 const filters = [['all', 'All'], ['journal', 'Journals'], ['conference', 'Conferences'], ['demo', 'Posters & demos'], ['domestic', 'Domestic']].map(([category, label]) => `<button type="button" data-filter="${category}" aria-pressed="${category === 'all'}">${escape(label)} <span>${category === 'all' ? data.publications.length : data.publications.filter(paper => paper.category === category).length}</span></button>`).join('');
@@ -43,10 +45,13 @@ const values = {
   EDUCATION: data.education.map(item => `<article class="education-item"><p class="education-period">${escape(item.period)}</p><h4>${escape(item.degree)}</h4><p>${escape(item.institution)}</p></article>`).join('\n'),
   PROJECTS: data.projects.map(item => `<article class="project-item"><span class="project-period">${escape(item.period)}</span><div><h4>${escape(item.title)}</h4><p>${escape(item.sponsor)}</p></div></article>`).join('\n')
 };
-const template = await readFile(path.join(root, 'index.template.html'), 'utf8');
-const output = template.replace(/\{\{([A-Z_]+)\}\}/g, (_, key) => {
+const pageNames = ['index', 'classic'];
+const templates = await Promise.all(pageNames.map(name => readFile(path.join(root, `${name}.template.html`), 'utf8')));
+const outputs = templates.map(template => template.replace(/\{\{([A-Z_]+)\}\}/g, (_, key) => {
   if (!(key in values)) throw new Error(`Unknown template placeholder: ${key}`);
   return values[key];
-});
-await writeFile(path.join(root, 'index.html'), output, 'utf8');
-console.log(`Built index.html: ${data.publications.length} publications, ${data.awards.length} awards, ${data.projects.length} projects.`);
+}));
+for (const [index, name] of pageNames.entries()) {
+  await writeFile(path.join(root, `${name}.html`), outputs[index], 'utf8');
+}
+console.log(`Built index.html and classic.html: ${data.publications.length} publications, ${data.awards.length} awards, ${data.projects.length} projects each.`);
