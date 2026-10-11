@@ -1,0 +1,19 @@
+# Original CV; the website's download copy is kept in assets/.
+/Jaejun_Park_CV.docx
+
+# Local previews and generated deployment files.
+/_site/
+/.site-preview/
+/.site-tests/
+/playwright-report/
+/test-results/
+/jjpark17.github.io.zip
+/node_modules/
+/.venv/
+__pycache__/
+*.py[cod]
+
+# Operating-system files.
+.DS_Store
+Thumbs.db
+Desktop.ini
