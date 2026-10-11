@@ -4,10 +4,10 @@ window.academicContent = {
   profile: {
     name: "Jaejun Park",
     image: null,
-    role: "Ph.D. Candidate",
+    role: "Ph.D. Student",
     field: "Human-Computer Interaction & Haptics",
     department: "Department of Computer Science and Engineering",
-    institution: "Pohang University of Science and Technology (POSTECH)",
+    institution: "Pohang University of Science and Technology",
     institutionShort: "POSTECH",
     advisor: "Prof. Seungmoon Choi",
     email: "jjpark17@postech.ac.kr",

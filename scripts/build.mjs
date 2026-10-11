@@ -106,7 +106,7 @@ const values = {
   PROFILE_PHOTO: profilePhoto,
   HOME_NEWS: htmlNews,
   NAME: escape(data.profile.name), ROLE: escape(data.profile.role), EMAIL: escape(data.profile.email),
-  DEPARTMENT: escape(data.profile.department), INSTITUTION_SHORT: escape(data.profile.institutionShort),
+  DEPARTMENT: escape(data.profile.department), INSTITUTION: escape(data.profile.institution),
   ADVISOR: escape(data.profile.advisor), SCHOLAR_URL: escape(data.profile.scholarUrl), YEAR: '2026',
   STRUCTURED_DATA: JSON.stringify({ '@context': 'https://schema.org', '@type': 'Person', name: data.profile.name, jobTitle: data.profile.role, affiliation: { '@type': 'CollegeOrUniversity', name: data.profile.institution }, email: `mailto:${data.profile.email}`, sameAs: [data.profile.scholarUrl, 'https://github.com/jjpark17'], knowsAbout: data.researchInterests }).replace(/</g, '\\u003c'),
   PUBLICATION_COUNT: data.publications.length, PUBLICATION_FILTERS: filters,
