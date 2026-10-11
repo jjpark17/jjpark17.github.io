@@ -3,6 +3,7 @@
 window.academicContent = {
   profile: {
     name: "Jaejun Park",
+    image: null,
     role: "Ph.D. Candidate",
     field: "Human-Computer Interaction & Haptics",
     department: "Department of Computer Science and Engineering",
@@ -40,6 +41,7 @@ window.academicContent = {
       year: 2026,
       category: "journal",
       note: "IEEE VR 2026 Track",
+      thumbnail: null,
       featured: true
     },
     {
@@ -50,6 +52,7 @@ window.academicContent = {
       venueShort: "TOH",
       year: 2026,
       category: "journal",
+      thumbnail: null,
       featured: false
     },
     {
@@ -60,6 +63,7 @@ window.academicContent = {
       venueShort: "EuroHaptics",
       year: 2024,
       category: "conference",
+      thumbnail: null,
       featured: false
     },
     {
@@ -70,6 +74,7 @@ window.academicContent = {
       venueShort: "EuroHaptics",
       year: 2024,
       category: "conference",
+      thumbnail: null,
       featured: false
     },
     {
@@ -80,6 +85,7 @@ window.academicContent = {
       venueShort: "ISMAR",
       year: 2023,
       category: "conference",
+      thumbnail: null,
       featured: true
     },
     {
@@ -90,6 +96,7 @@ window.academicContent = {
       venueShort: "WHC",
       year: 2023,
       category: "conference",
+      thumbnail: null,
       featured: true
     },
     {
@@ -100,6 +107,7 @@ window.academicContent = {
       venueShort: "CHI",
       year: 2023,
       category: "conference",
+      thumbnail: null,
       featured: true
     },
     {
@@ -110,6 +118,7 @@ window.academicContent = {
       venueShort: "EuroHaptics",
       year: 2022,
       category: "conference",
+      thumbnail: null,
       featured: false
     },
     {
@@ -120,6 +129,7 @@ window.academicContent = {
       venueShort: "VRST",
       year: 2021,
       category: "conference",
+      thumbnail: null,
       featured: false
     },
     {
@@ -131,6 +141,7 @@ window.academicContent = {
       year: 2025,
       category: "demo",
       subtype: "demo",
+      thumbnail: null,
       featured: false
     },
     {
@@ -142,6 +153,7 @@ window.academicContent = {
       year: 2025,
       category: "demo",
       subtype: "demo",
+      thumbnail: null,
       featured: false
     },
     {
@@ -153,6 +165,7 @@ window.academicContent = {
       year: 2025,
       category: "demo",
       subtype: "work-in-progress",
+      thumbnail: null,
       featured: false
     },
     {
@@ -164,6 +177,7 @@ window.academicContent = {
       year: 2026,
       category: "domestic",
       subtype: "paper",
+      thumbnail: null,
       featured: false
     },
     {
@@ -175,6 +189,7 @@ window.academicContent = {
       year: 2024,
       category: "domestic",
       subtype: "paper",
+      thumbnail: null,
       featured: false
     },
     {
@@ -186,6 +201,7 @@ window.academicContent = {
       year: 2023,
       category: "domestic",
       subtype: "paper",
+      thumbnail: null,
       featured: false
     },
     {
@@ -197,6 +213,7 @@ window.academicContent = {
       year: 2023,
       category: "domestic",
       subtype: "paper",
+      thumbnail: null,
       featured: false
     },
     {
@@ -208,6 +225,7 @@ window.academicContent = {
       year: 2023,
       category: "domestic",
       subtype: "paper",
+      thumbnail: null,
       featured: false
     },
     {
@@ -219,6 +237,7 @@ window.academicContent = {
       year: 2026,
       category: "domestic",
       subtype: "demo",
+      thumbnail: null,
       featured: false
     },
     {
@@ -230,6 +249,7 @@ window.academicContent = {
       year: 2024,
       category: "domestic",
       subtype: "demo",
+      thumbnail: null,
       featured: false
     }
   ],

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fcfcfb">
+  <meta name="theme-color" content="#f7f8f4">
   <meta name="description" content="Jaejun Park, Ph.D. candidate at POSTECH. Research in human-computer interaction, multimodal haptics, virtual reality, and automatic haptic generation.">
   <meta property="og:title" content="Jaejun Park — HCI & Haptics">
   <meta property="og:description" content="Research and publications. Ph.D. candidate at POSTECH.">
@@ -20,8 +20,9 @@
     <div class="header-inner">
       <a class="wordmark" href="#about" aria-label="Jaejun Park, home"><span class="brand-name">{{NAME}}</span></a>
       <nav class="top-nav" aria-label="Main navigation">
+        <a href="#about" aria-current="page">Home</a>
         <a href="#research">Research</a>
-        <a href="#publications">Publications</a>
+        <a href="publications.html">Publications</a>
         <a class="nav-contact" href="mailto:{{EMAIL}}">Contact ↗</a>
       </nav>
     </div>
@@ -29,10 +30,13 @@
 
   <div class="page-layout">
     <aside class="profile-sidebar" aria-label="Profile and section navigation">
-      <h1 class="profile-name">{{NAME}}</h1>
-      <p class="profile-role">{{ROLE}}</p>
-      <p class="profile-affiliation">{{DEPARTMENT}}<br><strong>{{INSTITUTION_SHORT}}</strong></p>
-      <p class="advisor"><span class="meta-label">Advisor</span><br>{{ADVISOR}}</p>
+      <div class="profile-photo">{{PROFILE_PHOTO}}</div>
+      <div class="profile-details">
+        <h1 class="profile-name">{{NAME}}</h1>
+        <p class="profile-role">{{ROLE}}</p>
+        <p class="profile-affiliation">{{DEPARTMENT}}<br><strong>{{INSTITUTION_SHORT}}</strong></p>
+        <p class="advisor"><span class="meta-label">Advisor</span><br>{{ADVISOR}}</p>
+      </div>
       <div class="profile-links">
         <a href="mailto:{{EMAIL}}">Email <span aria-hidden="true">↗</span></a>
         <a href="{{SCHOLAR_URL}}" target="_blank" rel="noopener noreferrer">Google Scholar <span aria-hidden="true">↗</span></a>
@@ -40,10 +44,10 @@
       </div>
       <a class="cv-button" href="assets/Jaejun_Park_CV.pdf" download>Download CV <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 3v9m-4-4 4 4 4-4M4 13v4h12v-4"/></svg></a>
       <nav class="section-nav" aria-label="On this page">
-        <span class="nav-label">ON THIS PAGE</span>
+        <span class="nav-label">EXPLORE</span>
         <a href="#about" aria-current="location">About</a>
         <a href="#research">Research interests</a>
-        <a href="#publications">Publications</a>
+        <a href="publications.html">Publications</a>
       </nav>
       <p class="location-note">Pohang, South Korea</p>
     </aside>
@@ -51,12 +55,12 @@
     <main id="main">
       <section class="hero" id="about" aria-labelledby="hero-title">
         <p class="hero-kicker">HUMAN–COMPUTER INTERACTION & HAPTICS</p>
-        <h2 class="hero-title" id="hero-title">Touch, perception,<br>and virtual experiences.</h2>
+        <h2 class="hero-title" id="hero-title">Making virtual worlds<br><span>tangible.</span></h2>
         <div class="bio">
-          <p>I study how people perceive and interact with digital experiences through touch.</p>
+          <p>I am a Ph.D. candidate at {{INSTITUTION_SHORT}}, advised by {{ADVISOR}}. I study how people perceive and interact with digital experiences through touch.</p>
           <p>My research interests include multimodal haptic feedback, haptic interaction in virtual reality, and LLMs for automatic haptic generation.</p>
         </div>
-        <a class="text-link hero-publications" href="#publications">Explore publications <span aria-hidden="true">↓</span></a>
+        <a class="text-link hero-publications" href="publications.html">Explore publications <span aria-hidden="true">↗</span></a>
       </section>
 
       <section class="content-section" id="research" aria-labelledby="research-title">
@@ -68,17 +72,10 @@
         </div>
       </section>
 
-      <section class="content-section" id="publications" aria-labelledby="publications-title">
-        <div class="section-heading"><span class="section-number">02</span><h2 id="publications-title">Publications</h2><span class="section-total">{{PUBLICATION_COUNT}}</span></div>
-        <p class="section-intro">Journal articles, conference papers, posters, and demonstrations.</p>
-        <div class="publication-controls" hidden>
-          <div class="filter-tabs" role="group" aria-label="Filter by publication type">{{PUBLICATION_FILTERS}}</div>
-          <label class="search-field"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4 4"/></svg><input id="publication-search" type="search" placeholder="Search title, author, or venue…" aria-label="Search publications" autocomplete="off"></label>
-        </div>
-        <p class="publication-status" id="publication-status" role="status" aria-live="polite" hidden>{{PUBLICATION_COUNT}} publications</p>
-        <div class="publication-list">{{PUBLICATIONS}}</div>
-        <div class="empty-state" hidden><p>No publications found.</p><button type="button" id="reset-search">Clear search and filters</button></div>
-        <a class="text-link scholar-link" href="{{SCHOLAR_URL}}" target="_blank" rel="noopener noreferrer">Google Scholar profile ↗</a>
+      <section class="content-section publications-summary" aria-labelledby="publications-summary-title">
+        <div class="section-heading"><span class="section-number">02</span><h2 id="publications-summary-title">Publications</h2></div>
+        <p class="section-intro">{{PUBLICATION_COUNT}} journal articles, conference papers, posters, and demonstrations.</p>
+        <a class="text-link" href="publications.html">View the full publication list <span aria-hidden="true">↗</span></a>
       </section>
 
       <footer class="site-footer"><span>© {{YEAR}} {{NAME}}</span><nav class="template-links" aria-label="Other designs"><a href="playful.html">Playful ↗</a><a href="classic.html">Classic ↗</a></nav><a href="#about">Back to top ↑</a></footer>
