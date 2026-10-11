@@ -18,9 +18,10 @@ if (new Set(data.publications.map(paper => paper.id)).size !== data.publications
 for (const award of data.awards) {
   if (!data.publications.some(paper => paper.id === award.publicationId)) throw new Error(`Unknown award publication: ${award.publicationId}`);
 }
-await Promise.all(['assets/Jaejun_Park_CV.pdf', 'assets/css/styles.css', 'assets/css/classic.css', 'assets/js/main.js', 'assets/favicon.svg'].map(file => access(path.join(root, file))));
+const versionedAssets = ['assets/css/styles.css', 'assets/css/classic.css', 'assets/css/playful.css', 'assets/js/main.js', 'assets/favicon.svg', 'assets/favicon-playful.svg'];
+await Promise.all(['assets/Jaejun_Park_CV.pdf', ...versionedAssets].map(file => access(path.join(root, file))));
 const assetHash = createHash('sha256');
-for (const file of ['assets/css/styles.css', 'assets/css/classic.css', 'assets/js/main.js', 'assets/favicon.svg']) {
+for (const file of versionedAssets) {
   const source = await readFile(path.join(root, file), 'utf8');
   assetHash.update(source.replace(/\r\n/g, '\n'));
 }
@@ -53,7 +54,7 @@ const values = {
   EDUCATION: data.education.map(item => `<article class="education-item"><p class="education-period">${escape(item.period)}</p><h4>${escape(item.degree)}</h4><p>${escape(item.institution)}</p></article>`).join('\n'),
   PROJECTS: data.projects.map(item => `<article class="project-item"><span class="project-period">${escape(item.period)}</span><div><h4>${escape(item.title)}</h4><p>${escape(item.sponsor)}</p></div></article>`).join('\n')
 };
-const pageNames = ['index', 'classic'];
+const pageNames = ['index', 'classic', 'playful'];
 const templates = await Promise.all(pageNames.map(name => readFile(path.join(root, `${name}.template.html`), 'utf8')));
 const outputs = templates.map(template => template.replace(/\{\{([A-Z_]+)\}\}/g, (_, key) => {
   if (!(key in values)) throw new Error(`Unknown template placeholder: ${key}`);
@@ -62,4 +63,4 @@ const outputs = templates.map(template => template.replace(/\{\{([A-Z_]+)\}\}/g,
 for (const [index, name] of pageNames.entries()) {
   await writeFile(path.join(root, `${name}.html`), outputs[index], 'utf8');
 }
-console.log(`Built index.html and classic.html: ${data.publications.length} publications, ${data.awards.length} awards, ${data.projects.length} projects each.`);
+console.log(`Built ${pageNames.map(name => `${name}.html`).join(', ')}: ${data.publications.length} publications, ${data.awards.length} awards, ${data.projects.length} projects each.`);
