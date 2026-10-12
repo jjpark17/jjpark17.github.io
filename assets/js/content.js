@@ -1,9 +1,10 @@
-// Academic content transcribed from Jaejun_Park_CV.docx.
-// Update this file when your CV changes. No external dependencies are required.
+// Academic content from the CV and the supplied introduction image.
+// Update this file when your profile or CV changes. No external dependencies are required.
 window.academicContent = {
   profile: {
     name: "Jaejun Park",
-    image: null,
+    image: { src: "assets/images/profile.jpg", alt: "Portrait of Jaejun Park" },
+    introduction: "I am a Ph.D. student at the Interaction Lab in the Computer Science Engineering Department at POSTECH. I dream of providing realistic haptic feedback for immersive user experiences. I'm interested in various stimuli, including heat, vibration, force, and even motion effects. I like taking walks, especially when I travel to other cities for conferences.",
     role: "Ph.D. Student",
     field: "Human-Computer Interaction & Haptics",
     department: "Department of Computer Science and Engineering",
@@ -15,10 +16,10 @@ window.academicContent = {
     scholarUrl: "https://scholar.google.co.kr/citations?user=aEWsBWQAAAAJ&hl=ko"
   },
   researchInterests: [
-    "Multimodal Haptic Feedback (vibrotactile, thermal, and kinesthetic)",
-    "Haptic Interaction in Virtual Reality",
-    "LLMs and Automatic Haptic Generation",
-    "Human-Computer Interaction"
+    "Haptics",
+    "Kinesthetic Rendering",
+    "Virtual Reality",
+    "Automatic Generation"
   ],
   news: [
     { date: "2026", text: "GenTouchVR — TVCG / IEEE VR.", publicationId: "J2" },

@@ -105,6 +105,8 @@ const values = {
   ASSET_VERSION: assetVersion,
   PROFILE_PHOTO: profilePhoto,
   HOME_NEWS: htmlNews,
+  INTRODUCTION: escape(data.profile.introduction),
+  RESEARCH_INTERESTS: data.researchInterests.map(interest => `<li>${escape(interest)}</li>`).join('\n'),
   NAME: escape(data.profile.name), ROLE: escape(data.profile.role), EMAIL: escape(data.profile.email),
   DEPARTMENT: escape(data.profile.department), INSTITUTION: escape(data.profile.institution),
   ADVISOR: escape(data.profile.advisor), SCHOLAR_URL: escape(data.profile.scholarUrl), LINKEDIN_URL: escape(data.profile.linkedinUrl), YEAR: '2026',

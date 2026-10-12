@@ -44,11 +44,14 @@
     </aside>
 
     <main id="main">
-      <section class="hero" id="about" aria-labelledby="about-title">
-        <p class="hero-kicker" id="about-title">HUMAN–COMPUTER INTERACTION & HAPTICS</p>
+      <section class="hero" id="about" aria-label="About Jaejun Park">
         <div class="bio">
-          <p>I am a Ph.D. student in the {{DEPARTMENT}} at {{INSTITUTION}}, advised by {{ADVISOR}}. My research focuses on human perception and interaction through touch, including multimodal haptic feedback (vibrotactile, thermal, and kinesthetic), haptic interaction in virtual reality, and LLMs for automatic haptic generation.</p>
+          <p>{{INTRODUCTION}}</p>
         </div>
+        <section class="research-interests" aria-labelledby="research-interests-title">
+          <div class="section-heading"><h2 id="research-interests-title">Research Interests</h2></div>
+          <ul class="research-interest-list">{{RESEARCH_INTERESTS}}</ul>
+        </section>
       </section>
 
       <section class="content-section news-section" id="news" aria-labelledby="news-title">

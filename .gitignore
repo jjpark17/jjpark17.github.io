@@ -1,6 +1,10 @@
 # Original CV; the website's download copy is kept in assets/.
 /Jaejun_Park_CV.docx
 
+# Supplied reference files; the published portrait is kept in assets/images/.
+/intro.png
+/profile.jpg
+
 # Local previews and generated deployment files.
 /_site/
 /.site-preview/
