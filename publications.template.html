@@ -26,24 +26,7 @@
     </div>
   </header>
 
-  <div class="page-layout">
-    <aside class="profile-sidebar" aria-label="Profile">
-      <div class="profile-photo">{{PROFILE_PHOTO}}</div>
-      <div class="profile-details">
-        <h2 class="profile-name">{{NAME}}</h2>
-        <p class="profile-role">{{ROLE}}</p>
-        <p class="profile-affiliation">{{DEPARTMENT}}<br><strong>{{INSTITUTION}}</strong></p>
-      </div>
-      <div class="profile-links">
-        <a href="mailto:{{EMAIL}}">Email <span aria-hidden="true">↗</span></a>
-        <a href="{{SCHOLAR_URL}}" target="_blank" rel="noopener noreferrer">Google Scholar <span aria-hidden="true">↗</span></a>
-        <a href="{{LINKEDIN_URL}}" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
-        <a class="cv-link" href="assets/Jaejun_Park_CV.pdf" download>CV <span aria-hidden="true">↗</span></a>
-      </div>
-      <p class="location-note">Pohang, South Korea</p>
-    </aside>
-
-    <main id="main">
+  <main class="page-layout" id="main">
       <section id="publications" aria-labelledby="publications-title">
         <div class="publications-header">
           <p class="hero-kicker">RESEARCH OUTPUT</p>
@@ -60,7 +43,6 @@
         <a class="text-link scholar-link" href="{{SCHOLAR_URL}}" target="_blank" rel="noopener noreferrer">Google Scholar profile ↗</a>
       </section>
       <footer class="site-footer"><span>© {{YEAR}} {{NAME}}</span><a href="index.html">Home ↗</a><a href="#publications">Back to top ↑</a></footer>
-    </main>
-  </div>
+  </main>
 </body>
 </html>
